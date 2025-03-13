@@ -40,6 +40,7 @@ namespace wending_machine
 		SnackInfo GetSnackInfo() const;
 		string ToString();
 		void FillSnackById(short id);
+		int GetCost() const;
 
 	private:
 		SnackInfo _info;

@@ -4,10 +4,7 @@ using namespace std;
 
 namespace wending_machine
 {
-	Snack::Snack()
-	{
-		//_info = SnackInfo();
-	}
+	Snack::Snack() {	}
 
 	Snack::Snack(short id)
 	{
@@ -48,25 +45,11 @@ namespace wending_machine
 		}
 		_info._cal = CalculateCalorie(_info._type);
 	}
-	/*short Snack::GetCost() const
+
+	int Snack::GetCost() const
 	{
 		return _info._cost;
 	}
-
-	short Snack::GetWeight() const
-	{
-		return _info._type;
-	}
-
-	int Snack::GetCalories() const
-	{
-		return _info._type * _info._cal;
-	}
-
-	SnackType Snack::GetSnackType() const
-	{
-		return _info._type;
-	}*/
 
 	SnackInfo Snack::GetSnackInfo() const
 	{
@@ -106,11 +89,6 @@ namespace wending_machine
 		_info._type = info._type;
 	}
 
-	/*short Snack::GetSnackId() const
-	{
-		return _info._id;
-	}*/
-
 	string Snack::ToString()
 	{
 		string output = "";
@@ -127,7 +105,6 @@ namespace wending_machine
 		return Snack(_id).ToString();
 	}
 
-	
 	SnackInfo::SnackInfo()
 	{
 		_type = ST_NODATA;
@@ -136,7 +113,6 @@ namespace wending_machine
 		_id = 0;
 		_name = "Неопределенный снэк";
 	}
-
 }
 
 

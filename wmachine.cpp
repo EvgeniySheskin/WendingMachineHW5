@@ -35,9 +35,9 @@ namespace wending_machine
 		return output;
 	}
 
-	bool WendingMachine::GetSnack(short slotNum)
+	bool WendingMachine::GetSnack(short slotNum, Wallet* wallet)
 	{
-		return _slots[slotNum - 1]->GetNextSnack();
+		return _slots[slotNum - 1]->GetNextSnack(wallet);
 	}
 
 	string WendingMachine::DisplaySnackList(SnackInfo* list, short* snackQty, short size)

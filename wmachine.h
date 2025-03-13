@@ -1,6 +1,7 @@
 #pragma once
 #include "slot.h"
 #include <string>
+#include "wallet.h"
 namespace wending_machine
 {
 	class WendingMachine
@@ -9,8 +10,7 @@ namespace wending_machine
 		WendingMachine(short slotSize);
 		~WendingMachine();
 		string DisplaySlots();
-		bool GetSnack(short slotNum);
-
+		bool GetSnack(short slotNum, Wallet* wallet);
 
 	private:
 		short _slotSize;
