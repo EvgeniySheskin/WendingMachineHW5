@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
+#include <Windows.h>
 #include "wmachine.h"
 #include "wallet.h"
 using namespace std;
@@ -32,24 +33,60 @@ bool ConfirmationRequest(string msg)
 
 }
 
+Snack* CreateSnackByUser(short num)
+{
+	SnackInfo* info = new SnackInfo();
+	cout << "Введите название снэка " + to_string(num) + ": ";
+	cin >> info->_name;
+	cout << "Введите стоимость снэка " + to_string(num) + ": ";
+	cin >> info->_cost;
+	cout << "Введите калорийность снэка " + to_string(num) + ": ";
+	cin >> info->_calories;
+	Snack* snack = new Snack(*info);
+	delete info;
+	return snack;
+}
+
+Snack* CreateSnack(string name, short calories, int cost)
+{
+	SnackInfo* info = new SnackInfo();
+	info->_name = name;
+	info->_cost = cost;
+	info->_calories = calories;
+	Snack* snack = new Snack(*info);
+	delete info;
+	return snack;
+}
+
 int main()
 {
 	setlocale(LC_ALL, "");
-	
+	SetConsoleCP(1251);
 	short *ss = new short(0);
+	short* slots = new short(0);
 	int* credits = new int(0);
 	char* slotNum = new char(0);
 	bool* isSuccessful = new bool(true);
 	bool* isOperational = new bool(true);
 
+	cout << "Введите число слотов в автомате: ";
+	cin >> *slots;
+	cout << endl;
 	cout << "Введите размеры слота: ";
 	cin >> *ss;
 	cout << endl;
 	cout << "Введите сумму доступных кредитов: ";
 	cin >> *credits;
 	
-	WendingMachine* wmachine = new WendingMachine(*ss);
+	WendingMachine* wmachine = new WendingMachine(*ss, *slots);
 	Wallet* wallet = new Wallet(*credits);
+	
+
+	for (short i = 0; i < *slots; i++)
+	{
+		Slot* slot = new Slot(*ss, *CreateSnackByUser(i + 1));
+		wmachine->AddSlot(slot);
+	}
 	delete ss, credits;
 
 	system("cls");
@@ -73,7 +110,7 @@ int main()
 		{
 			*slotNum -= '0';
 		}
-		if (*slotNum > NUMBER_OF_SNACKS)
+		if (*slotNum > *slots)
 		{
 			cout << "Введено некорректное значение\n";
 			continue;
@@ -100,7 +137,7 @@ int main()
 		}
 		
 	}
-	delete wmachine, slotNum, isSuccessful, isOperational;
+	delete wmachine, slotNum, isSuccessful, isOperational, slots;
 
 	return 0;
 }

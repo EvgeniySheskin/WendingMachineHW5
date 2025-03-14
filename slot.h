@@ -6,14 +6,16 @@ namespace wending_machine
 	class Slot
 	{
 	public:
-		Slot(short size, short snackId);
+		Slot(short size, Snack snack);
 		Slot();
 		~Slot();
 
 		bool GetNextSnack(Wallet* wallet);
 		SnackInfo GetSnackInfo() const;
 		short GetRemainingSnacksQuantity() const;
-		void FillSlot(short id);
+		//void FillSlot(short id);
+
+		bool AddSnack(SnackInfo info);
 
 
 	private:
