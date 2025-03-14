@@ -4,19 +4,12 @@
 
 namespace wending_machine
 {
-	Slot::Slot(Snack* snacks, short size)
-	{
-		_snacks = snacks;
-		_size = size;
-		_position = size;
-	}
-
-	Slot::Slot(short size, short snackId)
+	Slot::Slot(short size, Snack snack)
 	{
 		_snacks = new Snack[size];
 		for (short i = 0; i < size; ++i)
 		{
-			_snacks[i].FillSnackById(snackId);
+			_snacks[i] = snack;
 		}
 		_size = size;
 		_position = size;
@@ -39,12 +32,19 @@ namespace wending_machine
 		return _position;
 	}
 
-	bool Slot::GetNextSnack()
+	bool Slot::GetNextSnack(Wallet* wallet)
 	{
 		if (_position > 0)
 		{
-			_position--;
-			return true;
+			if (wallet->DrawCredits(_snacks[_position - 1].GetCost()))
+			{
+				_position--;
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 		else
 		{
@@ -69,12 +69,17 @@ namespace wending_machine
 	{
 		return GetPosition();
 	}
-	void Slot::FillSlot(short id)
+
+	bool Slot::AddSnack(SnackInfo info)
 	{
-		
-		for (short i = 0; i < _size; ++i)
+		if (_position < _size)
 		{
-			_snacks[i].FillSnackById(id);
+			_snacks[_position++ - 1] = Snack(info);
+			return true;
+		}
+		else
+		{
+			return false;
 		}
 	}
 }

@@ -130,11 +130,13 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="slot.cpp" />
     <ClCompile Include="snack.cpp" />
+    <ClCompile Include="wallet.cpp" />
     <ClCompile Include="wmachine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="slot.h" />
     <ClInclude Include="snack.h" />
+    <ClInclude Include="wallet.h" />
     <ClInclude Include="wmachine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
